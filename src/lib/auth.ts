@@ -16,9 +16,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           return null
         }
         
-        if (credentials.email === "admin@vendor.com" && credentials.password === "admin123") {
-          return { id: "admin-id", email: "admin@vendor.com", name: "Admin", role: "ADMIN" }
-        }
+        // Authentication is purely database driven
         
         try {
           const user = await prisma.user.findUnique({

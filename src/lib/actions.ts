@@ -246,9 +246,6 @@ export async function updateVendorSettings(userId: string, data: any) {
 
 export async function updateVendorPassword(userId: string, currentPass: string, newPass: string) {
   try {
-    if (userId === "admin-id") {
-      return { success: false, error: "Cannot change password for the hardcoded demo admin account." }
-    }
     
     const user = await prisma.user.findUnique({ where: { id: userId } })
     if (!user) return { success: false, error: "User not found" }
