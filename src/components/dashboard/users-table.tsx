@@ -64,7 +64,7 @@ export function UsersTable({ initialUsers }: { initialUsers: UserData[] }) {
   }
 
   return (
-    <Card className="shadow-md border-border/50">
+    <Card className="shadow-md border-border/50 min-w-0 w-full overflow-hidden">
       <CardContent className="p-0">
         <div className="p-4 border-b border-border/50 flex items-center gap-2">
           <Search className="w-4 h-4 text-muted-foreground" />

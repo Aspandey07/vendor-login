@@ -66,7 +66,7 @@ export function InquiriesDataTable({ initialInquiries }: { initialInquiries: any
   }
 
   return (
-    <div className="rounded-md border border-border/50 bg-card/50 backdrop-blur-sm overflow-hidden">
+    <div className="rounded-md border border-border/50 bg-card/50 backdrop-blur-sm overflow-hidden min-w-0 w-full">
       <Table>
         <TableHeader>
           <TableRow className="hover:bg-transparent bg-muted/30">

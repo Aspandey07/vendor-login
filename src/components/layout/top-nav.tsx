@@ -1,6 +1,6 @@
 "use client"
 import { SidebarTrigger } from "@/components/ui/sidebar"
-import { Bell } from "lucide-react"
+import { Bell, Globe } from "lucide-react"
 import { CommandMenu } from "@/components/layout/command-menu"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -29,6 +29,11 @@ export function TopNav() {
         <div className="flex items-center gap-4 ml-auto">
           <Button variant="outline" size="sm" className="hidden sm:flex">
             <Link href="/">View Website</Link>
+          </Button>
+          <Button variant="outline" size="icon" className="sm:hidden h-8 w-8 rounded-full bg-background" asChild>
+            <Link href="/" title="View Website">
+              <Globe className="h-4 w-4" />
+            </Link>
           </Button>
           <Button variant="ghost" size="icon" className="rounded-full relative text-muted-foreground hover:text-foreground">
             <Bell className="h-5 w-5" />
@@ -59,6 +64,9 @@ export function TopNav() {
                 Profile Settings
               </DropdownMenuItem>
               <DropdownMenuItem className="cursor-pointer">Billing</DropdownMenuItem>
+              <DropdownMenuItem className="sm:hidden cursor-pointer" render={<Link href="/" className="w-full" />}>
+                View Website
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={() => signOut()} className="cursor-pointer text-destructive focus:text-destructive focus:bg-destructive/10">
                 Log out

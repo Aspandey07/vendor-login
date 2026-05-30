@@ -210,7 +210,7 @@ export default function QuotesPage() {
                     </div>
                   </div>
                   
-                  <div className="grid grid-cols-2 gap-8 mb-8 text-sm">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 text-sm">
                     <div>
                       <h4 className="font-bold text-slate-800 mb-2 border-b pb-1">From:</h4>
                       <p className="text-slate-600">Vendor Account<br/>contact@vendor.com<br/>+1 (555) 123-4567</p>
@@ -225,7 +225,8 @@ export default function QuotesPage() {
                     </div>
                   </div>
 
-                  <table className="w-full text-sm text-left mb-8">
+                  <div className="w-full overflow-x-auto mb-8">
+                    <table className="w-full text-sm text-left">
                     <thead>
                       <tr className="border-b-2 border-slate-200">
                         <th className="pb-3 text-slate-800">Description</th>
@@ -245,6 +246,7 @@ export default function QuotesPage() {
                       ))}
                     </tbody>
                   </table>
+                  </div>
 
                   <div className="flex justify-end text-sm">
                     <div className="w-64 space-y-3">
