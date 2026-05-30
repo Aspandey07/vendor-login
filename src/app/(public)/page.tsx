@@ -28,7 +28,7 @@ export default async function HomePage() {
   return (
     <div className="flex flex-col w-full bg-slate-50 dark:bg-slate-950">
       
-      {/* Premium Hero Section */}
+
       <section className="relative w-full pt-32 pb-40 overflow-hidden flex flex-col items-center justify-center min-h-[90vh]">
         <div className="absolute inset-0 bg-slate-900">
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=2070&auto=format&fit=crop')] opacity-40 bg-cover bg-center mix-blend-overlay scale-105 animate-pulse-slow"></div>
@@ -48,7 +48,7 @@ export default async function HomePage() {
             The premium marketplace to discover, compare, and book elite professionals for weddings, parties, and corporate events.
           </p>
           
-          {/* E-commerce Style Search Bar */}
+
           <div className="w-full max-w-4xl bg-white dark:bg-slate-900 rounded-full p-2.5 shadow-2xl flex flex-col md:flex-row items-center gap-2 border border-slate-200 dark:border-slate-800">
             <div className="flex-1 flex items-center px-4 w-full md:border-r border-slate-200 dark:border-slate-700">
               <PartyPopper className="w-5 h-5 text-indigo-500 mr-3 shrink-0" />
@@ -71,10 +71,10 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Trust Bar */}
+
       <div className="w-full bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 py-6">
         <div className="container mx-auto px-4 flex flex-wrap justify-center gap-8 md:gap-16 opacity-70 grayscale">
-          {/* Mock Brand Logos */}
+
           <h3 className="font-bold text-xl text-slate-400 flex items-center gap-2"><div className="w-6 h-6 bg-slate-400 rounded-sm"></div> Forbes</h3>
           <h3 className="font-bold text-xl text-slate-400 flex items-center gap-2"><div className="w-6 h-6 bg-slate-400 rounded-full"></div> Vogue</h3>
           <h3 className="font-bold text-xl text-slate-400 flex items-center gap-2"><div className="w-6 h-6 bg-slate-400 rounded-sm rotate-45"></div> TheKnot</h3>
@@ -82,7 +82,7 @@ export default async function HomePage() {
         </div>
       </div>
 
-      {/* Visual Category Showcase */}
+
       <section className="py-24">
         <div className="container px-4 md:px-6 mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-end mb-12">
@@ -117,7 +117,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Featured Products / Vendors */}
+
       <section className="py-24 bg-white dark:bg-slate-900">
         <div className="container px-4 md:px-6 mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-end mb-12">
@@ -134,7 +134,7 @@ export default async function HomePage() {
             {vendors.length > 0 ? vendors.map((vendor, index) => (
               <Card key={vendor.id} className="border border-slate-100 dark:border-slate-800 hover:shadow-2xl hover:shadow-indigo-500/10 transition-all duration-300 group overflow-hidden bg-white dark:bg-slate-950 rounded-[2rem]">
                 <div className="relative h-56 bg-slate-100 overflow-hidden">
-                  {/* More reliable images for vendors */}
+
                   <img src={`https://picsum.photos/seed/${vendor.id}/800/600`} alt={vendor.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-indigo-700 uppercase tracking-wider">
                     {vendor.category}
@@ -177,7 +177,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Social Proof / Testimonials */}
+
       <section className="py-24 overflow-hidden relative">
         <div className="absolute inset-0 bg-indigo-600 skew-y-3 origin-top-left -z-10"></div>
         <div className="container px-4 md:px-6 mx-auto">
@@ -217,7 +217,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Inquiry Form Section */}
+
       <section id="inquiry" className="py-24 bg-slate-50 dark:bg-slate-950 relative">
         <div className="container px-4 md:px-6 mx-auto relative z-10">
           <div className="text-center mb-12">

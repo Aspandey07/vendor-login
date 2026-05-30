@@ -7,12 +7,12 @@ import { Input } from "@/components/ui/input"
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 font-sans">
-      {/* Promotional Top Bar */}
+
       <div className="w-full bg-indigo-600 text-white text-xs md:text-sm py-2 px-4 text-center font-medium tracking-wide">
         🎉 Special Offer: Get 20% off all premium wedding bookings this month! <Link href="/#inquiry" className="underline font-bold ml-1 hover:text-indigo-200">Book Now</Link>
       </div>
 
-      {/* Main Header */}
+
       <header className="sticky top-0 z-50 w-full border-b bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl shadow-sm">
         <div className="container mx-auto px-4 h-20 flex items-center justify-between">
           <Link href="/" className="font-extrabold text-2xl tracking-tight flex items-center gap-2.5 group">
@@ -24,14 +24,14 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
+
           <nav className="hidden md:flex gap-8 items-center">
             <Link href="/" className="text-sm font-bold text-slate-700 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Home</Link>
             <div className="relative group cursor-pointer">
               <span className="text-sm font-bold text-slate-700 dark:text-slate-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-center gap-1">
                 Categories
               </span>
-              {/* Simple dropdown mock */}
+
               <div className="absolute top-full left-0 mt-2 w-48 bg-white dark:bg-slate-900 shadow-xl rounded-xl border border-slate-100 dark:border-slate-800 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all flex flex-col p-2">
                 <Link href="#" className="p-2 text-sm hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg">Weddings</Link>
                 <Link href="#" className="p-2 text-sm hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg">Corporate</Link>
@@ -64,12 +64,12 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
         {children}
       </main>
       
-      {/* Mega Footer */}
+
       <footer className="bg-slate-900 text-slate-300 pt-20 pb-10 border-t-4 border-indigo-600">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
             
-            {/* Brand Column */}
+
             <div className="space-y-6">
               <div className="flex items-center gap-2">
                 <div className="bg-indigo-500 text-white p-2 rounded-lg">
@@ -88,7 +88,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
               </div>
             </div>
 
-            {/* Customers Links */}
+
             <div>
               <h3 className="text-white font-bold text-lg mb-6 relative inline-block">
                 For Customers
@@ -103,7 +103,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
               </ul>
             </div>
 
-            {/* Vendors Links */}
+
             <div>
               <h3 className="text-white font-bold text-lg mb-6 relative inline-block">
                 For Vendors
@@ -118,7 +118,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
               </ul>
             </div>
 
-            {/* Newsletter */}
+
             <div>
               <h3 className="text-white font-bold text-lg mb-6 relative inline-block">
                 Stay Updated
