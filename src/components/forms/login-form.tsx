@@ -39,7 +39,7 @@ export function LoginForm() {
         toast.error("Invalid credentials. Please try again.")
       } else {
         toast.success("Successfully logged in!")
-        router.push("/")
+        router.push("/dashboard")
         router.refresh()
       }
     } catch (error) {
