@@ -110,16 +110,16 @@ export function InquiryForm() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="vendorId" className="font-semibold text-slate-700 dark:text-slate-300">Select Vendor</Label>
+              <Label htmlFor="vendorId" className="font-semibold">Select Vendor</Label>
               <Select onValueChange={(val) => { if (val) setValue("vendorId", val as string) }} disabled={loading}>
-                <SelectTrigger className="h-12 rounded-xl border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 focus:ring-indigo-500 text-slate-900 dark:text-slate-100">
+                <SelectTrigger className="h-12 rounded-xl">
                   <SelectValue placeholder={loading ? "Loading vendors..." : "✨ Choose your preferred vendor"} />
                 </SelectTrigger>
-                <SelectContent className="rounded-xl border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xl">
+                <SelectContent className="rounded-xl shadow-xl">
                   {vendors.map(vendor => (
-                    <SelectItem key={vendor.id} value={vendor.id} className="cursor-pointer py-3 focus:bg-indigo-50 dark:focus:bg-indigo-900/30 transition-colors">
+                    <SelectItem key={vendor.id} value={vendor.id} className="cursor-pointer py-3">
                       <div className="flex flex-col text-left">
-                        <span className="font-bold text-slate-900 dark:text-slate-100">{vendor.name}</span>
+                        <span className="font-bold">{vendor.name}</span>
                         <span className="text-[10px] text-indigo-600 dark:text-indigo-400 font-bold bg-indigo-100 dark:bg-indigo-900/50 w-fit px-2 py-0.5 rounded-full mt-1 uppercase tracking-wider">{vendor.category}</span>
                       </div>
                     </SelectItem>
