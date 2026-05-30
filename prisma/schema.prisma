@@ -112,3 +112,11 @@ model Notification {
   vendor    Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
 }
+
+model PasswordResetToken {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  token     String   @unique
+  expires   DateTime
+  createdAt DateTime @default(now())
+}

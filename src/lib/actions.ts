@@ -263,3 +263,62 @@ export async function updateVendorPassword(userId: string, currentPass: string, 
     return { success: false, error: "Internal server error" }
   }
 }
+
+export async function requestPasswordReset(email: string) {
+  try {
+    const user = await prisma.user.findUnique({ where: { email } })
+    if (!user) {
+      // Return success even if not found for security reasons
+      return { success: true }
+    }
+
+    const token = crypto.randomUUID()
+    const expires = new Date(Date.now() + 3600000) // 1 hour
+
+    // Save token
+    await prisma.passwordResetToken.upsert({
+      where: { email },
+      update: { token, expires },
+      create: { email, token, expires }
+    })
+
+    // Simulate sending email (in a real app, use nodemailer/resend)
+    const resetUrl = `http://localhost:3000/reset-password?token=${token}`
+    console.log(`\n============================\n`)
+    console.log(`[PASSWORD RESET LINK GENERATED]`)
+    console.log(`Send this link to ${email}:`)
+    console.log(resetUrl)
+    console.log(`\n============================\n`)
+
+    return { success: true }
+  } catch (error) {
+    console.error("Error requesting password reset:", error)
+    return { success: false }
+  }
+}
+
+export async function resetPassword(token: string, newPass: string) {
+  try {
+    const resetToken = await prisma.passwordResetToken.findUnique({ where: { token } })
+    if (!resetToken || resetToken.expires < new Date()) {
+      return { success: false, error: "Invalid or expired token" }
+    }
+
+    const user = await prisma.user.findUnique({ where: { email: resetToken.email } })
+    if (!user) return { success: false, error: "User not found" }
+
+    const hashedPassword = await hash(newPass, 10)
+    await prisma.user.update({
+      where: { id: user.id },
+      data: { password: hashedPassword }
+    })
+
+    // Delete the token
+    await prisma.passwordResetToken.delete({ where: { id: resetToken.id } })
+
+    return { success: true }
+  } catch (error) {
+    console.error("Error resetting password:", error)
+    return { success: false, error: "Internal server error" }
+  }
+}

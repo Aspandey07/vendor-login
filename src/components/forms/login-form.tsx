@@ -7,6 +7,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { signIn } from "next-auth/react"
+import Link from "next/link"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
@@ -83,7 +84,7 @@ export function LoginForm() {
                 <FormItem>
                   <div className="flex items-center justify-between">
                     <FormLabel>Password</FormLabel>
-                    <a href="#" className="text-xs text-primary hover:underline font-medium">Forgot password?</a>
+                    <Link href="/forgot-password" className="text-xs text-primary hover:underline font-medium">Forgot password?</Link>
                   </div>
                   <FormControl>
                     <Input type="password" placeholder="••••••••" className="bg-muted/50" {...field} />
