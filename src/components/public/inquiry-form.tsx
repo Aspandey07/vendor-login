@@ -111,9 +111,13 @@ export function InquiryForm() {
 
             <div className="space-y-2">
               <Label htmlFor="vendorId" className="font-semibold">Select Vendor</Label>
-              <Select onValueChange={(val) => { if (val) setValue("vendorId", val as string) }} disabled={loading}>
+              <Select onValueChange={(val) => { if (val) setValue("vendorId", val as string) }} value={watch("vendorId")} disabled={loading}>
                 <SelectTrigger className="h-12 rounded-xl">
-                  <SelectValue placeholder={loading ? "Loading vendors..." : "✨ Choose your preferred vendor"} />
+                  <SelectValue placeholder={loading ? "Loading vendors..." : "✨ Choose your preferred vendor"}>
+                    {watch("vendorId") && vendors.find(v => v.id === watch("vendorId")) 
+                      ? `${vendors.find(v => v.id === watch("vendorId"))?.name} (${vendors.find(v => v.id === watch("vendorId"))?.category})` 
+                      : (loading ? "Loading vendors..." : "✨ Choose your preferred vendor")}
+                  </SelectValue>
                 </SelectTrigger>
                 <SelectContent className="rounded-xl shadow-xl">
                   {vendors.map(vendor => (
