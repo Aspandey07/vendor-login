@@ -16,12 +16,12 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 const items = [
-  { title: "Dashboard", url: "/", icon: Home },
-  { title: "Inquiries", url: "/inquiries", icon: Inbox },
-  { title: "Calendar", url: "/calendar", icon: Calendar },
-  { title: "Quotes", url: "/quotes", icon: FileText },
-  { title: "My Profile", url: "/profile", icon: Users },
-  { title: "Settings", url: "/settings", icon: Settings },
+  { title: "Dashboard", url: "/dashboard", icon: Home },
+  { title: "Inquiries", url: "/dashboard/inquiries", icon: Inbox },
+  { title: "Calendar", url: "/dashboard/calendar", icon: Calendar },
+  { title: "Quotes", url: "/dashboard/quotes", icon: FileText },
+  { title: "My Profile", url: "/dashboard/profile", icon: Users },
+  { title: "Settings", url: "/dashboard/settings", icon: Settings },
 ]
 
 export function AppSidebar() {

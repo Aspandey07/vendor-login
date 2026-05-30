@@ -52,7 +52,7 @@ export function TopNav() {
                 </DropdownMenuLabel>
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
-              <DropdownMenuItem render={<Link href="/profile" className="w-full cursor-pointer" />}>
+              <DropdownMenuItem render={<Link href="/dashboard/profile" className="w-full cursor-pointer" />}>
                 Profile Settings
               </DropdownMenuItem>
               <DropdownMenuItem className="cursor-pointer">Billing</DropdownMenuItem>

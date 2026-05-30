@@ -45,15 +45,17 @@ model Inquiry {
   customerPhone String?
   eventType     String
   eventDate     DateTime
+  guestCount    Int?
   budget        Float?
+  eventLocation String?
   message       String
   status        String   @default("New")
   aiScore       String?
   aiSummary     String?
   aiInsights    Json?
   reminderDate  DateTime?
-  vendorId      String   @db.ObjectId
-  vendor        Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  vendorId      String?   @db.ObjectId
+  vendor        Vendor?   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
   timeline      InquiryTimeline[]
   notes         Note[]
   logs          CommunicationLog[]
