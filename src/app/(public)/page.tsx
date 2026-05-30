@@ -97,10 +97,10 @@ export default async function HomePage() {
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { title: "Weddings", image: "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop", count: "340+ Vendors" },
-              { title: "Corporate Galas", image: "https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=800&auto=format&fit=crop", count: "120+ Vendors" },
-              { title: "Birthday Parties", image: "https://images.unsplash.com/photo-1530103862676-de88b6b129b0?q=80&w=800&auto=format&fit=crop", count: "210+ Vendors" },
-              { title: "Private Dining", image: "https://images.unsplash.com/photo-1414235077428-338988a2e8c0?q=80&w=800&auto=format&fit=crop", count: "85+ Vendors" },
+              { title: "Weddings", image: "https://picsum.photos/seed/weddings/800/800", count: "340+ Vendors" },
+              { title: "Corporate Galas", image: "https://picsum.photos/seed/corporate/800/800", count: "120+ Vendors" },
+              { title: "Birthday Parties", image: "https://picsum.photos/seed/birthday/800/800", count: "210+ Vendors" },
+              { title: "Private Dining", image: "https://picsum.photos/seed/dining/800/800", count: "85+ Vendors" },
             ].map((cat, i) => (
               <Link href="#inquiry" key={i} className="group relative h-80 rounded-[2rem] overflow-hidden shadow-lg cursor-pointer">
                 <div className="absolute inset-0 bg-slate-900">
