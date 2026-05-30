@@ -2,6 +2,7 @@
 
 import { prisma } from "@/lib/prisma"
 import { startOfMonth, subMonths, endOfMonth, startOfWeek, addDays } from "date-fns"
+import { compare, hash } from "bcryptjs"
 
 const DEMO_VENDOR_ID = "60d5f9b5b3c5a5b5c5d5e5f5" 
 
@@ -216,5 +217,49 @@ export async function updateVendorProfile(userId: string, data: any) {
   } catch (error) {
     console.error("Error updating vendor profile:", error)
     return { success: false }
+  }
+}
+
+export async function updateVendorSettings(userId: string, data: any) {
+  try {
+    const vendor = await prisma.vendor.findUnique({ where: { userId } })
+    const socialLinks = vendor?.socialLinks ? (typeof vendor.socialLinks === 'string' ? JSON.parse(vendor.socialLinks) : vendor.socialLinks) : {}
+    
+    await prisma.vendor.update({
+      where: { userId },
+      data: {
+        name: data.name,
+        socialLinks: {
+          ...socialLinks,
+          website: data.website,
+          notifyNewInquiry: data.notifyNewInquiry,
+          notifyBooking: data.notifyBooking
+        }
+      }
+    })
+    return { success: true }
+  } catch (error) {
+    console.error("Error updating vendor settings:", error)
+    return { success: false }
+  }
+}
+
+export async function updateVendorPassword(userId: string, currentPass: string, newPass: string) {
+  try {
+    const user = await prisma.user.findUnique({ where: { id: userId } })
+    if (!user) return { success: false, error: "User not found" }
+    
+    const isMatch = await compare(currentPass, user.password)
+    if (!isMatch) return { success: false, error: "Incorrect current password" }
+    
+    const hashedPassword = await hash(newPass, 10)
+    await prisma.user.update({
+      where: { id: userId },
+      data: { password: hashedPassword }
+    })
+    return { success: true }
+  } catch (error) {
+    console.error("Error updating password:", error)
+    return { success: false, error: "Internal server error" }
   }
 }
