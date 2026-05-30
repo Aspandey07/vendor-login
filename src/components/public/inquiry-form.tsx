@@ -117,11 +117,8 @@ export function InquiryForm() {
                 </SelectTrigger>
                 <SelectContent className="rounded-xl shadow-xl">
                   {vendors.map(vendor => (
-                    <SelectItem key={vendor.id} value={vendor.id} className="cursor-pointer py-3">
-                      <div className="flex flex-col text-left">
-                        <span className="font-bold">{vendor.name}</span>
-                        <span className="text-[10px] text-indigo-600 dark:text-indigo-400 font-bold bg-indigo-100 dark:bg-indigo-900/50 w-fit px-2 py-0.5 rounded-full mt-1 uppercase tracking-wider">{vendor.category}</span>
-                      </div>
+                    <SelectItem key={vendor.id} value={vendor.id} className="cursor-pointer">
+                      {vendor.name} ({vendor.category})
                     </SelectItem>
                   ))}
                 </SelectContent>
