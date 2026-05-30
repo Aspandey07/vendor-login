@@ -30,10 +30,8 @@ export function TopNav() {
           <Button variant="outline" size="sm" className="hidden sm:flex">
             <Link href="/">View Website</Link>
           </Button>
-          <Button variant="outline" size="icon" className="sm:hidden h-8 w-8 rounded-full bg-background" asChild>
-            <Link href="/" title="View Website">
-              <Globe className="h-4 w-4" />
-            </Link>
+          <Button variant="outline" size="icon" className="sm:hidden h-8 w-8 rounded-full bg-background" render={<Link href="/" title="View Website" />}>
+            <Globe className="h-4 w-4" />
           </Button>
           <Button variant="ghost" size="icon" className="rounded-full relative text-muted-foreground hover:text-foreground">
             <Bell className="h-5 w-5" />
