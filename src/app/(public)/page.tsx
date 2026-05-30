@@ -102,7 +102,7 @@ export default async function HomePage() {
               { title: "Birthday Parties", image: "https://images.unsplash.com/photo-1530103862676-de88b6b129b0?q=80&w=800&auto=format&fit=crop", count: "210+ Vendors" },
               { title: "Private Dining", image: "https://images.unsplash.com/photo-1414235077428-338988a2e8c0?q=80&w=800&auto=format&fit=crop", count: "85+ Vendors" },
             ].map((cat, i) => (
-              <Link href="#inquiry" key={i} className="group relative h-80 rounded-2xl overflow-hidden shadow-lg cursor-pointer">
+              <Link href="#inquiry" key={i} className="group relative h-80 rounded-[2rem] overflow-hidden shadow-lg cursor-pointer">
                 <div className="absolute inset-0 bg-slate-900">
                   <img src={cat.image} alt={cat.title} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700" />
                 </div>
@@ -132,10 +132,10 @@ export default async function HomePage() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {vendors.length > 0 ? vendors.map((vendor, index) => (
-              <Card key={vendor.id} className="border border-slate-100 dark:border-slate-800 hover:shadow-2xl hover:shadow-indigo-500/10 transition-all duration-300 group overflow-hidden bg-white dark:bg-slate-950 rounded-2xl">
+              <Card key={vendor.id} className="border border-slate-100 dark:border-slate-800 hover:shadow-2xl hover:shadow-indigo-500/10 transition-all duration-300 group overflow-hidden bg-white dark:bg-slate-950 rounded-[2rem]">
                 <div className="relative h-56 bg-slate-100 overflow-hidden">
-                  {/* Mock beautiful images based on index */}
-                  <img src={`https://images.unsplash.com/photo-${['1520854221256-17451cc331bf', '1505909182942-e2f09aee3e89', '1470229722913-7c090be10328', '1464366400600-7168b8af9bc3', '1511795409834-ef04bbd61622', '1478146896981-b80c4d2c1945'][index % 6]}?q=80&w=800&auto=format&fit=crop`} alt={vendor.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  {/* More reliable images for vendors */}
+                  <img src={`https://picsum.photos/seed/${vendor.id}/800/600`} alt={vendor.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-indigo-700 uppercase tracking-wider">
                     {vendor.category}
                   </div>
@@ -192,7 +192,7 @@ export default async function HomePage() {
               { name: "Michael Chen", role: "Corporate Event Planner", text: "VendorBook completely transformed how our company handles annual galas. The quality of caterers and AV teams available is unmatched." },
               { name: "Amanda Rossi", role: "Birthday Host", text: "I wanted something special for my daughter's 16th. Found an amazing decorator and DJ within my budget instantly!" }
             ].map((review, i) => (
-              <Card key={i} className="bg-white dark:bg-slate-900 border-none shadow-xl rounded-2xl p-2 relative">
+              <Card key={i} className="bg-white dark:bg-slate-900 border-none shadow-xl rounded-[2rem] p-2 relative">
                 <div className="absolute -top-6 -right-6 text-indigo-100 dark:text-slate-800">
                   <svg width="80" height="80" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M14.017 21L16.417 14.599C16.637 13.986 16.75 13.332 16.75 12.671V3H23V12.671C23 15.696 21.684 18.57 19.387 20.574L18.411 21.411L14.017 21ZM5.01697 21L7.41697 14.599C7.63697 13.986 7.74997 13.332 7.74997 12.671V3H14V12.671C14 15.696 12.684 18.57 10.387 20.574L9.41097 21.411L5.01697 21Z"/></svg>
                 </div>

@@ -110,15 +110,18 @@ export function InquiryForm() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="vendorId">Select Vendor</Label>
+              <Label htmlFor="vendorId" className="font-semibold text-slate-700">Select Vendor</Label>
               <Select onValueChange={(val) => { if (val) setValue("vendorId", val as string) }} disabled={loading}>
-                <SelectTrigger>
-                  <SelectValue placeholder={loading ? "Loading..." : "Choose a vendor"} />
+                <SelectTrigger className="h-12 rounded-xl border-slate-200 bg-slate-50 focus:ring-indigo-500">
+                  <SelectValue placeholder={loading ? "Loading vendors..." : "✨ Choose your preferred vendor"} />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="rounded-xl border-slate-100 shadow-xl">
                   {vendors.map(vendor => (
-                    <SelectItem key={vendor.id} value={vendor.id}>
-                      {vendor.name} ({vendor.category})
+                    <SelectItem key={vendor.id} value={vendor.id} className="cursor-pointer py-3 focus:bg-indigo-50 transition-colors">
+                      <div className="flex flex-col text-left">
+                        <span className="font-bold text-slate-900">{vendor.name}</span>
+                        <span className="text-[10px] text-indigo-600 font-bold bg-indigo-100 w-fit px-2 py-0.5 rounded-full mt-1 uppercase tracking-wider">{vendor.category}</span>
+                      </div>
                     </SelectItem>
                   ))}
                 </SelectContent>
