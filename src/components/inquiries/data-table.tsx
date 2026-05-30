@@ -104,7 +104,7 @@ export function InquiriesDataTable({ initialInquiries }: { initialInquiries: any
                     <MoreHorizontal className="h-4 w-4" />
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="w-[180px]">
-                    <DropdownMenuItem render={<Link href={`/inquiries/${inquiry.id}`} className="w-full cursor-pointer" />}>
+                    <DropdownMenuItem render={<Link href={`/dashboard/inquiries/${inquiry.id}`} className="w-full cursor-pointer" />}>
                       <Eye className="mr-2 h-4 w-4 text-primary" /> View details
                     </DropdownMenuItem>
                     <DropdownMenuItem className="cursor-pointer" onClick={() => toast.info(`Email client opened for ${inquiry.email}`)}>
