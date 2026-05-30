@@ -3,15 +3,12 @@
 import { prisma } from "@/lib/prisma"
 import { startOfMonth, subMonths, endOfMonth, startOfWeek, addDays } from "date-fns"
 
-// Temporary hardcoded vendor ID for demo until Auth is fully wired
 const DEMO_VENDOR_ID = "60d5f9b5b3c5a5b5c5d5e5f5" 
 
 export async function getDashboardStats() {
   try {
-    // Attempt to get stats from DB
     const totalInquiries = await prisma.inquiry.count()
     
-    // Upcoming events in next 7 days
     const now = new Date()
     const nextWeek = addDays(now, 7)
     const upcomingEvents = await prisma.inquiry.count({
@@ -24,14 +21,12 @@ export async function getDashboardStats() {
       }
     })
 
-    // Active customers (unique customers with confirmed inquiries)
     const confirmedInquiries = await prisma.inquiry.findMany({
       where: { status: "Confirmed" },
       select: { customerEmail: true }
     })
     const activeCustomers = new Set(confirmedInquiries.map(i => i.customerEmail)).size
 
-    // Projected Revenue (Sum of budget/amount from Confirmed inquiries and Quotes)
     const confirmedQuotes = await prisma.quote.aggregate({
       _sum: { amount: true }
     })
@@ -95,7 +90,6 @@ export async function getStatusChartData() {
 
 export async function getMonthlyChartData() {
   try {
-    // Get inquiries for the last 6 months
     const sixMonthsAgo = startOfMonth(subMonths(new Date(), 5))
     
     const inquiries = await prisma.inquiry.findMany({
@@ -111,18 +105,15 @@ export async function getMonthlyChartData() {
 
     if (inquiries.length === 0) return null
 
-    // Group by month
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     const dataMap: Record<string, number> = {}
     
-    // Initialize last 6 months with 0
     for (let i = 5; i >= 0; i--) {
       const d = subMonths(new Date(), i)
       const monthName = months[d.getMonth()]
       dataMap[monthName] = 0
     }
 
-    // Populate actual counts
     inquiries.forEach(inq => {
       const m = months[inq.createdAt.getMonth()]
       if (dataMap[m] !== undefined) {

@@ -36,10 +36,6 @@ export default async function HomePage() {
         </div>
         
         <div className="container relative z-10 px-4 md:px-6 mx-auto text-center flex flex-col items-center mt-[-5vh]">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white mb-8">
-            <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-ping"></span>
-            <span className="text-sm font-semibold tracking-wide">Over 1,000+ top-rated vendors available</span>
-          </div>
           
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 max-w-5xl text-white drop-shadow-2xl leading-tight">
             Book the Perfect Vendor for Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">Dream Event</span>

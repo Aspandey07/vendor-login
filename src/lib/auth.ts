@@ -16,12 +16,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           return null
         }
         
-        // Hardcoded admin fallback for demo purposes
         if (credentials.email === "admin@vendor.com" && credentials.password === "admin123") {
           return { id: "admin-id", email: "admin@vendor.com", name: "Admin", role: "ADMIN" }
         }
         
-        // Fallback to check DB if they set a real password
         try {
           const user = await prisma.user.findUnique({
             where: { email: credentials.email as string }
@@ -61,7 +59,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async jwt({ token, user }) {
       if (user) {
         token.sub = user.id
-        // user object is any by default, so we can access custom properties
         token.role = (user as any).role
         token.name = (user as any).name
       }
