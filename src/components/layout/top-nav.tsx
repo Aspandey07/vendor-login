@@ -27,7 +27,7 @@ export function TopNav() {
         </div>
         
         <div className="flex items-center gap-4 ml-auto">
-          <Button variant="outline" size="sm" className="hidden sm:flex" asChild>
+          <Button variant="outline" size="sm" className="hidden sm:flex">
             <Link href="/">View Website</Link>
           </Button>
           <Button variant="ghost" size="icon" className="rounded-full relative text-muted-foreground hover:text-foreground">
