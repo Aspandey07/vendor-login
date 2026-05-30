@@ -51,10 +51,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
               <span className="absolute -top-1.5 -right-1.5 bg-indigo-600 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
             </div>
             <Link href="/login" className={cn(buttonVariants({ variant: "outline" }), "rounded-full font-semibold border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800")}>
-              Login
-            </Link>
-            <Link href="/login" className={cn(buttonVariants({ variant: "default" }), "rounded-full font-bold bg-indigo-600 hover:bg-indigo-700 shadow-md shadow-indigo-200 dark:shadow-none hidden sm:inline-flex")}>
-              Vendor Signup
+              Admin Login
             </Link>
           </div>
         </div>
@@ -110,11 +107,8 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
                 <span className="absolute -bottom-2 left-0 w-1/2 h-1 bg-indigo-500 rounded-full"></span>
               </h3>
               <ul className="space-y-4 text-sm">
-                <li><Link href="/login" className="hover:text-white hover:translate-x-1 inline-block transition-transform">Join as a Vendor</Link></li>
-                <li><Link href="#" className="hover:text-white hover:translate-x-1 inline-block transition-transform">Pricing Plans</Link></li>
-                <li><Link href="/login" className="hover:text-white hover:translate-x-1 inline-block transition-transform">Vendor Login</Link></li>
-                <li><Link href="#" className="hover:text-white hover:translate-x-1 inline-block transition-transform">Success Stories</Link></li>
-                <li><Link href="#" className="hover:text-white hover:translate-x-1 inline-block transition-transform">Vendor Resources</Link></li>
+                <li><Link href="/login" className="hover:text-white hover:translate-x-1 inline-block transition-transform">Admin Dashboard</Link></li>
+                <li><Link href="/login" className="hover:text-white hover:translate-x-1 inline-block transition-transform">Manage Inquiries</Link></li>
               </ul>
             </div>
 

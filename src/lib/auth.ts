@@ -16,32 +16,32 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           return null
         }
         
-        if (credentials.email === "admin@vendor.com") {
-          return { id: "test-admin-id", email: "admin@vendor.com" }
+        // Restrict login to Admin only
+        if (credentials.email !== "admin@vendor.com") {
+          return null
         }
-
+        
+        // For demo purposes, we will allow login for admin if the password matches admin123
+        // or check against the database if preferred.
+        if (credentials.password === "admin123") {
+          return { id: "admin-id", email: "admin@vendor.com" }
+        }
+        
+        // Fallback to check DB if they set a real password
         try {
           const user = await prisma.user.findUnique({
             where: { email: credentials.email as string }
           })
           
-          if (!user) {
-            // Fallback for test preview if user not found
-            return { id: "test-user-id", email: credentials.email as string }
+          if (user) {
+            const isValid = await bcrypt.compare(credentials.password as string, user.password)
+            if (isValid) return { id: user.id, email: user.email }
           }
-          
-          const isValid = await bcrypt.compare(credentials.password as string, user.password)
-          
-          if (!isValid) {
-            return null
-          }
-          
-          return { id: user.id, email: user.email }
         } catch (error) {
-          // If DB is not connected, fallback to bypass
-          console.error("Database connection failed, falling back to bypass")
-          return { id: "test-bypass-id", email: credentials.email as string }
+          console.error("Database connection failed")
         }
+
+        return null
       }
     })
   ],

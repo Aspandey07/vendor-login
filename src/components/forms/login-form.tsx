@@ -55,9 +55,9 @@ export function LoginForm() {
         <div className="mx-auto bg-primary/10 text-primary p-3 rounded-2xl w-fit mb-2 ring-1 ring-primary/20">
           <Calendar className="w-6 h-6" />
         </div>
-        <CardTitle className="text-2xl font-bold tracking-tight">Welcome back</CardTitle>
+        <CardTitle className="text-2xl font-bold tracking-tight">Admin Login</CardTitle>
         <CardDescription className="text-sm">
-          Enter your credentials to access the vendor dashboard.
+          Enter your credentials to access the admin dashboard.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -100,7 +100,7 @@ export function LoginForm() {
       </CardContent>
       <CardFooter className="flex justify-center border-t p-4 mt-2">
         <p className="text-sm text-muted-foreground">
-          Don't have an account? <a href="#" className="text-primary hover:underline font-medium">Contact support</a>
+          Note: Only the administrator can log in to this portal.
         </p>
       </CardFooter>
     </Card>
