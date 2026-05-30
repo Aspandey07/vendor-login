@@ -3,7 +3,16 @@ import Image from "next/image"
 import { Separator } from "@/components/ui/separator"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
-export default function ProfilePage() {
+import { auth } from "@/lib/auth"
+import { getVendorProfile } from "@/lib/actions"
+import { redirect } from "next/navigation"
+
+export default async function ProfilePage() {
+  const session = await auth()
+  if (!session?.user?.id) redirect("/login")
+  
+  const vendor = await getVendorProfile(session.user.id)
+  
   return (
     <div className="space-y-6 max-w-4xl animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div>
@@ -42,7 +51,7 @@ export default function ProfilePage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <ProfileForm />
+          <ProfileForm initialData={vendor} userId={session.user.id} />
         </CardContent>
       </Card>
     </div>

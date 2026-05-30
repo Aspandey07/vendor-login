@@ -177,3 +177,44 @@ export async function updateUserRole(id: string, role: string) {
     return { success: false }
   }
 }
+
+export async function getVendorProfile(userId: string) {
+  try {
+    let vendor = await prisma.vendor.findUnique({ where: { userId } })
+    if (!vendor) {
+      vendor = await prisma.vendor.create({
+        data: {
+          name: "My Event Business",
+          category: "venue",
+          location: "New York, NY",
+          email: "contact@example.com",
+          phone: "+1 212-555-0199",
+          userId: userId
+        }
+      })
+    }
+    return vendor
+  } catch (error) {
+    console.error("Error getting vendor profile:", error)
+    return null
+  }
+}
+
+export async function updateVendorProfile(userId: string, data: any) {
+  try {
+    await prisma.vendor.update({
+      where: { userId },
+      data: {
+        name: data.name,
+        category: data.category,
+        location: data.location,
+        email: data.email,
+        phone: data.phone
+      }
+    })
+    return { success: true }
+  } catch (error) {
+    console.error("Error updating vendor profile:", error)
+    return { success: false }
+  }
+}

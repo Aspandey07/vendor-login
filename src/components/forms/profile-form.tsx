@@ -9,6 +9,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { toast } from "sonner"
 import { Loader2 } from "lucide-react"
 import { useState } from "react"
+import { updateVendorProfile } from "@/lib/actions"
+import { useRouter } from "next/navigation"
 
 const profileFormSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters.", }),
@@ -18,26 +20,31 @@ const profileFormSchema = z.object({
   phone: z.string().min(10, { message: "Phone number is too short.", }),
 })
 
-export function ProfileForm() {
+export function ProfileForm({ initialData, userId }: { initialData?: any, userId: string }) {
   const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter()
   
   const form = useForm<z.infer<typeof profileFormSchema>>({
     resolver: zodResolver(profileFormSchema),
     defaultValues: {
-      name: "Acme Events",
-      category: "caterer",
-      location: "New York, NY",
-      email: "contact@acmeevents.com",
-      phone: "+1 212-555-0199",
+      name: initialData?.name || "Acme Events",
+      category: initialData?.category || "caterer",
+      location: initialData?.location || "New York, NY",
+      email: initialData?.email || "contact@acmeevents.com",
+      phone: initialData?.phone || "+1 212-555-0199",
     },
   })
 
   async function onSubmit(data: z.infer<typeof profileFormSchema>) {
     setIsLoading(true)
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-      toast.success("Profile updated successfully")
+      const res = await updateVendorProfile(userId, data)
+      if (res.success) {
+        toast.success("Profile updated successfully")
+        router.refresh()
+      } else {
+        toast.error("Failed to update profile")
+      }
     } catch {
       toast.error("Failed to update profile")
     } finally {
