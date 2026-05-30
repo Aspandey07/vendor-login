@@ -146,7 +146,7 @@ export function DashboardContent({ stats }: { stats: DashboardStats }) {
               <CardTitle>Inquiry Status Distribution</CardTitle>
               <CardDescription>A breakdown of your current leads by their pipeline status.</CardDescription>
             </CardHeader>
-            <CardContent className="pt-4">
+            <CardContent className="pt-4 min-w-0 w-full overflow-hidden">
               <StatusChart />
             </CardContent>
           </Card>
@@ -157,7 +157,7 @@ export function DashboardContent({ stats }: { stats: DashboardStats }) {
             <CardTitle>Monthly Inquiries</CardTitle>
             <CardDescription>Inquiries received over the last 6 months.</CardDescription>
           </CardHeader>
-          <CardContent className="pt-4">
+          <CardContent className="pt-4 min-w-0 w-full overflow-hidden">
             <MonthlyChart />
           </CardContent>
         </Card>
@@ -167,7 +167,7 @@ export function DashboardContent({ stats }: { stats: DashboardStats }) {
             <CardTitle>Recent Activity</CardTitle>
             <CardDescription>Latest inquiries and status updates.</CardDescription>
           </CardHeader>
-          <CardContent className="flex-1">
+          <CardContent className="flex-1 min-w-0 w-full overflow-x-auto">
             <RecentActivity />
           </CardContent>
         </Card>
