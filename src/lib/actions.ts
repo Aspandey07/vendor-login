@@ -161,3 +161,28 @@ export async function updateInquiryStatus(id: string, status: string) {
     return { success: false }
   }
 }
+
+export async function deleteUser(id: string) {
+  try {
+    await prisma.user.delete({
+      where: { id }
+    })
+    return { success: true }
+  } catch (error) {
+    console.error("Error deleting user:", error)
+    return { success: false }
+  }
+}
+
+export async function updateUserRole(id: string, role: string) {
+  try {
+    await prisma.user.update({
+      where: { id },
+      data: { role }
+    })
+    return { success: true }
+  } catch (error) {
+    console.error("Error updating user role:", error)
+    return { success: false }
+  }
+}
