@@ -16,15 +16,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           return null
         }
         
-        // Restrict login to Admin only
-        if (credentials.email !== "admin@vendor.com") {
-          return null
-        }
-        
-        // For demo purposes, we will allow login for admin if the password matches admin123
-        // or check against the database if preferred.
-        if (credentials.password === "admin123") {
-          return { id: "admin-id", email: "admin@vendor.com" }
+        // Hardcoded admin fallback for demo purposes
+        if (credentials.email === "admin@vendor.com" && credentials.password === "admin123") {
+          return { id: "admin-id", email: "admin@vendor.com", name: "Admin", role: "ADMIN" }
         }
         
         // Fallback to check DB if they set a real password
@@ -35,10 +29,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           
           if (user) {
             const isValid = await bcrypt.compare(credentials.password as string, user.password)
-            if (isValid) return { id: user.id, email: user.email }
+            if (isValid) {
+              return { 
+                id: user.id, 
+                email: user.email, 
+                name: user.name || "User", 
+                role: user.role 
+              }
+            }
           }
         } catch (error) {
-          console.error("Database connection failed")
+          console.error("Database connection failed", error)
         }
 
         return null
@@ -52,12 +53,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async session({ session, token }) {
       if (token.sub && session.user) {
         session.user.id = token.sub
+        session.user.role = token.role as string
+        session.user.name = token.name as string
       }
       return session
     },
     async jwt({ token, user }) {
       if (user) {
         token.sub = user.id
+        // user object is any by default, so we can access custom properties
+        token.role = (user as any).role
+        token.name = (user as any).name
       }
       return token
     }

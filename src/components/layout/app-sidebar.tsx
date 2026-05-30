@@ -20,6 +20,7 @@ const items = [
   { title: "Inquiries", url: "/dashboard/inquiries", icon: Inbox },
   { title: "Calendar", url: "/dashboard/calendar", icon: Calendar },
   { title: "Quotes", url: "/dashboard/quotes", icon: FileText },
+  { title: "Registered Users", url: "/dashboard/users", icon: Users },
   { title: "My Profile", url: "/dashboard/profile", icon: Users },
   { title: "Settings", url: "/dashboard/settings", icon: Settings },
 ]

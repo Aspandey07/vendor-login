@@ -6,41 +6,43 @@ import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { signIn } from "next-auth/react"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
-import { Calendar, Loader2 } from "lucide-react"
+import { UserPlus, Loader2 } from "lucide-react"
+import Link from "next/link"
 
 const formSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Invalid email address"),
-  password: z.string().min(1, "Password is required"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
 })
 
-export function LoginForm() {
+export function SignupForm() {
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: { email: "", password: "" },
+    defaultValues: { name: "", email: "", password: "" },
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true)
     try {
-      const res = await signIn("credentials", {
-        redirect: false,
-        email: values.email,
-        password: values.password,
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
       })
+      
+      const data = await res.json()
 
-      if (res?.error) {
-        toast.error("Invalid credentials. Please try again.")
+      if (!res.ok) {
+        toast.error(data.error || "Failed to sign up")
       } else {
-        toast.success("Successfully logged in!")
-        router.push("/dashboard")
-        router.refresh()
+        toast.success("Account created successfully! Please log in.")
+        router.push("/login")
       }
     } catch (error) {
       toast.error("Something went wrong.")
@@ -53,11 +55,11 @@ export function LoginForm() {
     <Card className="w-full max-w-md shadow-2xl border-border/40 backdrop-blur-sm bg-card/95 animate-in zoom-in-95 duration-500">
       <CardHeader className="space-y-2 text-center pb-6">
         <div className="mx-auto bg-primary/10 text-primary p-3 rounded-2xl w-fit mb-2 ring-1 ring-primary/20">
-          <Calendar className="w-6 h-6" />
+          <UserPlus className="w-6 h-6" />
         </div>
-        <CardTitle className="text-2xl font-bold tracking-tight">Login to VendorBook</CardTitle>
+        <CardTitle className="text-2xl font-bold tracking-tight">Create an Account</CardTitle>
         <CardDescription className="text-sm">
-          Enter your credentials to access your account.
+          Join VendorBook to explore and book top event professionals.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -65,12 +67,25 @@ export function LoginForm() {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
               control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Full Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="John Doe" className="bg-muted/50" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
               name="email"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="admin@vendor.com" className="bg-muted/50" {...field} />
+                    <Input placeholder="you@example.com" className="bg-muted/50" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -81,10 +96,7 @@ export function LoginForm() {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <div className="flex items-center justify-between">
-                    <FormLabel>Password</FormLabel>
-                    <a href="#" className="text-xs text-primary hover:underline font-medium">Forgot password?</a>
-                  </div>
+                  <FormLabel>Password</FormLabel>
                   <FormControl>
                     <Input type="password" placeholder="••••••••" className="bg-muted/50" {...field} />
                   </FormControl>
@@ -93,14 +105,14 @@ export function LoginForm() {
               )}
             />
             <Button type="submit" className="w-full mt-2 font-medium" disabled={isLoading}>
-              {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Sign In"}
+              {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Sign Up"}
             </Button>
           </form>
         </Form>
       </CardContent>
       <CardFooter className="flex justify-center border-t p-4 mt-2">
         <p className="text-sm text-muted-foreground">
-          Don't have an account? <a href="/signup" className="text-primary hover:underline font-medium">Sign up</a>
+          Already have an account? <Link href="/login" className="text-primary hover:underline font-medium">Log in</Link>
         </p>
       </CardFooter>
     </Card>

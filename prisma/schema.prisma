@@ -11,7 +11,8 @@ model User {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   email     String   @unique
   password  String
-  role      String   @default("VENDOR") // ADMIN or VENDOR
+  name      String?
+  role      String   @default("USER") // ADMIN or VENDOR or USER
   vendor    Vendor?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
