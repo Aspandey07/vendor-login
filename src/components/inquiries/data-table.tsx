@@ -16,13 +16,7 @@ import { MoreHorizontal, Eye, Mail, CheckCircle, XCircle } from "lucide-react"
 import Link from "next/link"
 import { toast } from "sonner"
 
-const initialInquiries = [
-  { id: "INQ-001", name: "Alice Johnson", email: "alice@example.com", event: "Wedding", date: "2026-08-15", status: "New", amount: "$5,000" },
-  { id: "INQ-002", name: "Bob Smith", email: "bob@example.com", event: "Corporate Party", date: "2026-07-20", status: "Confirmed", amount: "$2,500" },
-  { id: "INQ-003", name: "Charlie Davis", email: "charlie@example.com", event: "Birthday", date: "2026-06-10", status: "Contacted", amount: "$800" },
-  { id: "INQ-004", name: "Diana Prince", email: "diana@example.com", event: "Anniversary", date: "2026-09-05", status: "New", amount: "$1,200" },
-  { id: "INQ-005", name: "Evan Wright", email: "evan@example.com", event: "Gala Dinner", date: "2026-11-12", status: "Rejected", amount: "$10,000" },
-]
+// Removed hardcoded initialInquiries
 
 const getStatusColor = (status: string) => {
   switch (status) {
@@ -34,17 +28,40 @@ const getStatusColor = (status: string) => {
   }
 }
 
-export function InquiriesDataTable() {
-  const [inquiries, setInquiries] = useState(initialInquiries)
+import { updateInquiryStatus } from "@/lib/actions"
 
-  const updateStatus = (id: string, newStatus: string) => {
+export function InquiriesDataTable({ initialInquiries }: { initialInquiries: any[] }) {
+  const [inquiries, setInquiries] = useState(
+    initialInquiries.map(inq => ({
+      id: inq.id,
+      name: inq.customerName,
+      email: inq.customerEmail,
+      event: inq.eventType,
+      date: new Date(inq.eventDate).toLocaleDateString(),
+      status: inq.status,
+      amount: inq.budget ? `$${inq.budget}` : 'N/A'
+    }))
+  )
+
+  const updateStatus = async (id: string, newStatus: string) => {
+    // Optimistic UI update
     setInquiries(inquiries.map(inquiry => 
       inquiry.id === id ? { ...inquiry, status: newStatus } : inquiry
     ))
-    if (newStatus === "Confirmed") {
-      toast.success(`Inquiry ${id} has been confirmed!`)
-    } else if (newStatus === "Rejected") {
-      toast.error(`Inquiry ${id} has been rejected.`)
+    
+    // Server update
+    const result = await updateInquiryStatus(id, newStatus)
+    
+    if (result.success) {
+      if (newStatus === "Confirmed") {
+        toast.success(`Inquiry has been confirmed!`)
+      } else if (newStatus === "Rejected") {
+        toast.error(`Inquiry has been rejected.`)
+      } else {
+        toast.success(`Status updated to ${newStatus}`)
+      }
+    } else {
+      toast.error(`Failed to update status. Please try again.`)
     }
   }
 

@@ -136,3 +136,28 @@ export async function getMonthlyChartData() {
     return null
   }
 }
+
+export async function getAllInquiries() {
+  try {
+    const inquiries = await prisma.inquiry.findMany({
+      orderBy: { createdAt: 'desc' }
+    })
+    return inquiries
+  } catch (error) {
+    console.error("Error fetching all inquiries:", error)
+    return []
+  }
+}
+
+export async function updateInquiryStatus(id: string, status: string) {
+  try {
+    await prisma.inquiry.update({
+      where: { id },
+      data: { status }
+    })
+    return { success: true }
+  } catch (error) {
+    console.error("Error updating inquiry status:", error)
+    return { success: false }
+  }
+}

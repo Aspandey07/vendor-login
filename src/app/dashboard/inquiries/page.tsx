@@ -5,7 +5,11 @@ import { Input } from "@/components/ui/input"
 import { Search, Filter, Plus, List, LayoutGrid } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-export default function InquiriesPage() {
+import { getAllInquiries } from "@/lib/actions"
+
+export default async function InquiriesPage() {
+  const inquiries = await getAllInquiries()
+  
   return (
     <div className="flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -36,10 +40,10 @@ export default function InquiriesPage() {
         </div>
 
         <TabsContent value="list" className="mt-0 border-none p-0 outline-none">
-          <InquiriesDataTable />
+          <InquiriesDataTable initialInquiries={inquiries} />
         </TabsContent>
         <TabsContent value="kanban" className="mt-0 border-none p-0 outline-none h-[calc(100vh-280px)] min-h-[500px]">
-          <KanbanBoard />
+          <KanbanBoard initialInquiries={inquiries} />
         </TabsContent>
       </Tabs>
     </div>

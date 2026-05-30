@@ -6,28 +6,34 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Mail, Calendar, DollarSign, GripVertical } from "lucide-react"
 
-const initialInquiries = {
-  "New": [
-    { id: "INQ-001", name: "Alice Johnson", event: "Wedding", date: "2026-08-15", amount: "$5,000" },
-    { id: "INQ-004", name: "Diana Prince", event: "Anniversary", date: "2026-09-05", amount: "$1,200" },
-  ],
-  "Contacted": [
-    { id: "INQ-003", name: "Charlie Davis", event: "Birthday", date: "2026-06-10", amount: "$800" },
-  ],
-  "Confirmed": [
-    { id: "INQ-002", name: "Bob Smith", event: "Corporate Party", date: "2026-07-20", amount: "$2,500" },
-  ],
-  "Rejected": [
-    { id: "INQ-005", name: "Evan Wright", event: "Gala Dinner", date: "2026-11-12", amount: "$10,000" },
-  ]
-}
+import { updateInquiryStatus } from "@/lib/actions"
+import { toast } from "sonner"
 
 const columns = ["New", "Contacted", "Confirmed", "Rejected"]
 
-export function KanbanBoard() {
-  const [data, setData] = useState(initialInquiries)
+export function KanbanBoard({ initialInquiries }: { initialInquiries: any[] }) {
+  const [data, setData] = useState(() => {
+    const grouped = {
+      "New": [],
+      "Contacted": [],
+      "Confirmed": [],
+      "Rejected": []
+    } as Record<string, any[]>
+    
+    initialInquiries.forEach(inq => {
+      const status = grouped[inq.status] ? inq.status : "New"
+      grouped[status].push({
+        id: inq.id,
+        name: inq.customerName,
+        event: inq.eventType,
+        date: new Date(inq.eventDate).toLocaleDateString(),
+        amount: inq.budget ? `$${inq.budget}` : 'N/A'
+      })
+    })
+    return grouped
+  })
 
-  const onDragEnd = (result: DropResult) => {
+  const onDragEnd = async (result: DropResult) => {
     if (!result.destination) return
 
     const { source, destination } = result
@@ -38,11 +44,19 @@ export function KanbanBoard() {
       const [removed] = sourceCol.splice(source.index, 1)
       destCol.splice(destination.index, 0, removed)
 
+      // Optimistic update
       setData({
         ...data,
         [source.droppableId]: sourceCol,
         [destination.droppableId]: destCol
       })
+      
+      // Server update
+      const res = await updateInquiryStatus(removed.id, destination.droppableId)
+      if (!res.success) {
+        toast.error("Failed to update status")
+      }
+
     } else {
       const col = [...data[source.droppableId as keyof typeof data]]
       const [removed] = col.splice(source.index, 1)
