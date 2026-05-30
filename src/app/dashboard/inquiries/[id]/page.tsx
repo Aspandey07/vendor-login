@@ -44,7 +44,7 @@ export default async function InquiryDetailPage(props: { params: Promise<{ id: s
             <CardDescription>Information about the requested event</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6 pt-6">
-            <div className="grid grid-cols-2 gap-y-6 gap-x-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-4">
               <div className="space-y-1.5 p-3 bg-muted/20 rounded-lg border border-border/30">
                 <span className="text-sm font-semibold text-muted-foreground flex items-center gap-2"><Calendar className="h-4 w-4 text-primary" /> Event Date</span>
                 <p className="font-medium text-lg">{inquiry.eventDate.toLocaleDateString()}</p>
@@ -62,7 +62,7 @@ export default async function InquiryDetailPage(props: { params: Promise<{ id: s
                 <p className="font-medium text-lg text-emerald-500">{inquiry.budget ? `$${inquiry.budget.toLocaleString()}` : "Not specified"}</p>
               </div>
               {inquiry.eventLocation && (
-                <div className="space-y-1.5 p-3 bg-muted/20 rounded-lg border border-border/30 col-span-2">
+                <div className="space-y-1.5 p-3 bg-muted/20 rounded-lg border border-border/30 col-span-1 sm:col-span-2">
                   <span className="text-sm font-semibold text-muted-foreground flex items-center gap-2"><Map className="h-4 w-4 text-primary" /> Location</span>
                   <p className="font-medium text-lg">{inquiry.eventLocation}</p>
                 </div>
@@ -73,7 +73,7 @@ export default async function InquiryDetailPage(props: { params: Promise<{ id: s
             
             <div className="space-y-3">
               <span className="text-sm font-semibold text-muted-foreground flex items-center gap-2"><MessageSquare className="h-4 w-4 text-primary" /> Customer Message</span>
-              <div className="p-5 rounded-xl bg-primary/5 border border-primary/10 text-sm leading-relaxed relative whitespace-pre-wrap">
+              <div className="p-5 rounded-xl bg-primary/5 border border-primary/10 text-sm leading-relaxed relative whitespace-pre-wrap break-words">
                 <div className="absolute top-0 left-0 w-1 h-full bg-primary rounded-l-xl"></div>
                 {inquiry.message}
               </div>
