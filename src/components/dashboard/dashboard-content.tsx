@@ -10,14 +10,14 @@ import { buttonVariants } from "@/components/ui/button"
 import Image from "next/image"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
-import { motion } from "framer-motion"
+import { motion, Variants } from "framer-motion"
 
-const container = {
+const container: Variants = {
   hidden: { opacity: 0 },
   show: { opacity: 1, transition: { staggerChildren: 0.1 } }
 }
 
-const item = {
+const item: Variants = {
   hidden: { opacity: 0, y: 20 },
   show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
 }
