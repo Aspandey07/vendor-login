@@ -1,0 +1,111 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  password  String
+  role      String   @default("VENDOR") // ADMIN or VENDOR
+  vendor    Vendor?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Vendor {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  category    String
+  location    String
+  email       String
+  phone       String
+  description String?
+  logoUrl     String?
+  galleryUrls String[]
+  socialLinks Json?
+  services    String[]
+  userId      String    @unique @db.ObjectId
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  inquiries   Inquiry[]
+  quotes      Quote[]
+  notifications Notification[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Inquiry {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  customerName  String
+  customerEmail String
+  customerPhone String?
+  eventType     String
+  eventDate     DateTime
+  budget        Float?
+  message       String
+  status        String   @default("New")
+  aiScore       String?
+  aiSummary     String?
+  aiInsights    Json?
+  reminderDate  DateTime?
+  vendorId      String   @db.ObjectId
+  vendor        Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  timeline      InquiryTimeline[]
+  notes         Note[]
+  logs          CommunicationLog[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model InquiryTimeline {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  inquiryId   String   @db.ObjectId
+  inquiry     Inquiry  @relation(fields: [inquiryId], references: [id], onDelete: Cascade)
+  status      String
+  actionBy    String?
+  createdAt   DateTime @default(now())
+}
+
+model Note {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  content     String
+  inquiryId   String   @db.ObjectId
+  inquiry     Inquiry  @relation(fields: [inquiryId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+}
+
+model CommunicationLog {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  type        String   // Email, Call, WhatsApp
+  summary     String
+  inquiryId   String   @db.ObjectId
+  inquiry     Inquiry  @relation(fields: [inquiryId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+}
+
+model Quote {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  vendorId    String   @db.ObjectId
+  vendor      Vendor   @relation(fields: [vendorId], references: [id])
+  customerName String
+  amount      Float
+  items       Json     
+  pdfUrl      String?
+  createdAt   DateTime @default(now())
+}
+
+model Notification {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  message   String
+  type      String   // info, success, warning, error
+  isRead    Boolean  @default(false)
+  link      String?
+  vendorId  String   @db.ObjectId
+  vendor    Vendor   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}
