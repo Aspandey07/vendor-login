@@ -30,12 +30,12 @@ export function AppSidebar() {
   return (
     <Sidebar variant="inset" collapsible="icon">
       <SidebarHeader className="flex items-center justify-center py-6">
-        <div className="font-bold text-2xl tracking-tight flex items-center gap-2">
+        <Link href="/" className="font-bold text-2xl tracking-tight flex items-center gap-2 hover:opacity-80 transition-opacity" title="Go to Home Page">
           <div className="bg-gradient-to-tr from-blue-600 to-purple-600 text-white p-2 rounded-xl shadow-md">
              <Calendar className="w-5 h-5" />
           </div>
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-purple-700">VendorBook</span>
-        </div>
+        </Link>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
