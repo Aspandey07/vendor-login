@@ -116,7 +116,7 @@ model Notification {
 model PasswordResetToken {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   email     String   @unique
-  token     String   @unique
+  otp       String
   expires   DateTime
   createdAt DateTime @default(now())
 }
