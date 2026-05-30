@@ -21,7 +21,7 @@ const formSchema = z.object({
   guestCount: z.coerce.number().min(1, "Guest count must be at least 1"),
   budget: z.coerce.number().min(0, "Budget must be a positive number"),
   eventLocation: z.string().min(2, "Event location is required"),
-  vendorId: z.string().min(1, "Please select a vendor"),
+  vendorId: z.string().optional(),
   message: z.string().min(10, "Please provide some details about your event")
 })
 
@@ -42,7 +42,7 @@ export function InquiryForm() {
     resolver: zodResolver(formSchema) as any,
     defaultValues: {
       eventType: "",
-      vendorId: "",
+      vendorId: "none",
     }
   })
 
@@ -110,16 +110,19 @@ export function InquiryForm() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="vendorId" className="font-semibold">Select Vendor</Label>
-              <Select onValueChange={(val) => { if (val) setValue("vendorId", val as string) }} value={watch("vendorId")} disabled={loading}>
+              <Label htmlFor="vendorId" className="font-semibold">Select Vendor (Optional)</Label>
+              <Select onValueChange={(val) => { if (val) setValue("vendorId", val) }} value={watch("vendorId")} disabled={loading}>
                 <SelectTrigger className="h-12 rounded-xl">
                   <span className="flex flex-1 text-left truncate">
-                    {watch("vendorId") && vendors.find(v => v.id === watch("vendorId")) 
+                    {watch("vendorId") && watch("vendorId") !== "none" && vendors.find(v => v.id === watch("vendorId")) 
                       ? `${vendors.find(v => v.id === watch("vendorId"))?.name} (${vendors.find(v => v.id === watch("vendorId"))?.category})` 
-                      : <span className="text-slate-500">{loading ? "Loading vendors..." : "✨ Choose your preferred vendor"}</span>}
+                      : <span className="text-slate-500">{loading ? "Loading vendors..." : "✨ Let VendorBook match me"}</span>}
                   </span>
                 </SelectTrigger>
                 <SelectContent className="rounded-xl shadow-xl">
+                  <SelectItem value="none" className="cursor-pointer font-medium text-indigo-600">
+                    ✨ Let VendorBook match me
+                  </SelectItem>
                   {vendors.map(vendor => (
                     <SelectItem key={vendor.id} value={vendor.id} className="cursor-pointer">
                       {vendor.name} ({vendor.category})

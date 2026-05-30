@@ -12,7 +12,7 @@ const inquirySchema = z.object({
   budget: z.coerce.number().min(0).optional(),
   eventLocation: z.string().optional(),
   message: z.string().min(10, "Please provide more details"),
-  vendorId: z.string().min(1, "Please select a vendor")
+  vendorId: z.string().optional()
 })
 
 export async function POST(req: Request) {
@@ -31,7 +31,7 @@ export async function POST(req: Request) {
         budget: validatedData.budget,
         eventLocation: validatedData.eventLocation,
         message: validatedData.message,
-        vendorId: validatedData.vendorId,
+        vendorId: validatedData.vendorId && validatedData.vendorId !== "none" ? validatedData.vendorId : undefined,
         status: "New"
       }
     })
