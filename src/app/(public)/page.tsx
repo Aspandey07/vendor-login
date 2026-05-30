@@ -45,7 +45,7 @@ export default async function HomePage() {
           </p>
           
 
-          <div className="w-full max-w-4xl bg-white dark:bg-slate-900 rounded-full p-2.5 shadow-2xl flex flex-col md:flex-row items-center gap-2 border border-slate-200 dark:border-slate-800">
+          <div className="w-full max-w-4xl bg-white dark:bg-slate-900 rounded-3xl md:rounded-full p-2.5 shadow-2xl flex flex-col md:flex-row items-center gap-2 border border-slate-200 dark:border-slate-800">
             <div className="flex-1 flex items-center px-4 w-full md:border-r border-slate-200 dark:border-slate-700">
               <PartyPopper className="w-5 h-5 text-indigo-500 mr-3 shrink-0" />
               <Input type="text" placeholder="What are you looking for? (e.g. Photographer)" className="border-0 shadow-none focus-visible:ring-0 bg-transparent text-base" />
